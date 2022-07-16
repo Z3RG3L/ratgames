@@ -27,6 +27,6 @@ if ($result->num_rows > 0) {
         }
     }
 } else {
-    echo ("<script>alert('Tu no eres Brou, usuario incorrecto');window.location.href='#'</script>");
+    echo ("<script>alert('Tu no eres Brou, usuario incorrecto');window.location.href='index.php';</script>");
 }
 $conn->close();
