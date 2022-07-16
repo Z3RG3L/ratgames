@@ -33,13 +33,13 @@ include_once("validasesion.php");
     ?>
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <div style="background-color:Teal" class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <div class="container-fluid">
+            <div style="background-color:Teal" class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>SUCURSALES</h1>
+                        <h1 style="color:white;">SUCURSALES</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">

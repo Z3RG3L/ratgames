@@ -65,13 +65,13 @@ include_once("ValidaSesion.php");
     ?>
 
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
+<div body style="background-color:Teal" class="content-wrapper">
       <!-- Content Header (Page header) -->
       <section class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
-            <div   class="col-sm-6">
-              <h1>Tipo</h1>
+            <div class="col-sm-6">
+              <h1 style="color:white;">CATEGORÍA</h1>
             </div>
             <div class="col-sm-6">
              <?php
@@ -104,7 +104,7 @@ include_once("ValidaSesion.php");
                     <form action="categoriaAcciones.php<?= $destino ?>" method="post">
                       <div class="card-body">
                       <div class="form-group">
-                          <label for="idproducto">ID de Categoría:</label>
+                          <label for="cvecat">ID de Categoría:</label>
                           <input type="text" disabled class="form-control" name="cve_cat" id="cve_cat" value="" placeholder="Clave de categoría.">
                         </div>
                         <div class="form-group">

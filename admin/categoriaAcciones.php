@@ -16,7 +16,7 @@ if (isset($_REQUEST["acc"]) && isset($_GET["cvecat"])) {
     if (isset($_GET["cvecat"])) {
 
         if (!isset($_REQUEST["nom_cat"])) {
-            echo "<script>alert('Error al recibir los datos');window.open('categoria.php');</script>";
+            echo "<script>alert('Ingresando datos...');window.open('categoria.php');</script>";
         }
 
         $nomcat = $_REQUEST["nom_cat"];

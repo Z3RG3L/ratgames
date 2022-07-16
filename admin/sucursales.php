@@ -77,13 +77,13 @@ include_once("ValidaSesion.php");
     ?>
 
     <!-- Content Wrapper. Contains page content -->
-    <div body style="background-color:pink" class="content-wrapper">
+    <div body style="background-color:Teal" class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 style="color:purple;">Sucursal</h1>
+                        <h1 style="color:white;">Sucursal</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -97,7 +97,7 @@ include_once("ValidaSesion.php");
 
         <!-- Main content -->
         <section class="content">
-            <div body style="background-color:pink" class="container-fluid">
+            <div body style="background-color:Teal" class="container-fluid">
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
@@ -150,9 +150,30 @@ include_once("ValidaSesion.php");
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="nombre">Clave de municipio</label>
-                                                <input type="text" class="form-control" name="cveMun" id="cveMun" value="<?= $cveMun; ?>" placeholder="Clave de municipio.">
-                                            </div>
+<label for="nombre">Clave del municipio:</label>
+<select class="form-control" name="cve_mun" id="cve_mun" value="<?= $cveMun; ?>">
+<option value="">-- Selecciones una opcion --</option>
+<?php
+include("conexion.php");
+$nom_mun = "";
+$sql = "select cve_mun, nom_mun from municipio";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+while ($row = $result->fetch_assoc()) {
+$nom_mun = $row["nom_mun"];
+if ($cveMun == $row["cve_mun"]) {
+echo "<option value='" . $row["cve_mun"] . "' selected='selected'>" . $row["cve_mun"] . ' - '. $row["nom_mun"] ."</option>";
+} else {
+echo "<option value='" . $row["cve_mun"] . "'>" . $row["cve_mun"] .' - '. $row["nom_mun"] . "</option>";
+}
+}
+} else {
+echo "0 results";
+}
+$conn->close();
+?>
+</select>
+</div>
 
                                             <?php
                                             $chequeado = "";

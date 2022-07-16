@@ -40,7 +40,7 @@ include_once("ValidaSesion.php");
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 style="color:white">ESTADOS</h1>
+              <h1 style="color:white">CLIENTES</h1>
             </div>
             <div class="col-sm-6">
             <?php
@@ -58,32 +58,43 @@ include_once("ValidaSesion.php");
             <div class="col-12">
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">Lista de estados</h3>
+                  <h3 class="card-title">Lista de clientes</h3>
                   <?php
                   $btnBorrados = "Mostrar todos";
-                  $accBorrados = "estadolst.php?borrados=si";
+                  $accBorrados = "clientelst.php?borrados=si";
                   if (isset($_REQUEST["borrados"])) {
                     $btnBorrados = "Ocultar borrados";
-                    $accBorrados = "estadolst.php";
+                    $accBorrados = "clientelst.php";
                   } else {
                     if (isset($_REQUEST["soloborrados"])) {
                       $btnBorrados = "Mostrar activos";
-                      $accBorrados = "estadolst.php";
+                      $accBorrados = "clientelst.php";
                     }
                   }
 
                   ?>
                   <br><a class="btn btn-dark" href="<?= $accBorrados ?>"><?= $btnBorrados ?></a>
-                  <a class="btn btn-danger" href="estadolst.php?soloborrados=si">Mostrar solo borrados</a>
+                  <a class="btn btn-danger" href="clientelst.php?soloborrados=si">Mostrar solo borrados</a>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th>Clave de estado</th>
-                        <th>Nombre de estado</th>
-                        <th>Prefijo de estado</th> 
+                        <th>ID de cliente</th>
+                        <th>Nombre</th>
+                        <th>Apellido paterno</th>
+                        <th>Apellido materno</th>
+                        <th>celular</th>
+                        <th>Calle</th>
+                        <th>Código postal</th>
+                        <th>Número interior</th>
+                        <th>Número exterior</th>
+                        <th>Colonia</th>
+                        <th>RFC</th>
+                        <th>ID de municipio</th>
+                        <th>Nombre de usuario</th>
+                        <th>Correo electrónico</th>
                         <th>Activo</th>
                         <th>Editar</th>
                         <th>Eliminar</th>
@@ -102,7 +113,7 @@ include_once("ValidaSesion.php");
                         }
                       }
 
-                      $sql = "select * from estado $borrados";
+                      $sql = "select * from cliente $borrados";
                       $result = $conn->query($sql);
 
                       if ($result->num_rows > 0) {
@@ -114,12 +125,23 @@ include_once("ValidaSesion.php");
 
                           echo "
                           <tr $colorInactivo>
-                            <td>" . $row["cve_est"] . "</td>
-                            <td>" . $row["nom_est"] . "</td>
-                            <td>" . $row["prefijo"] . "</td>                            
+                            <td>" . $row["id_clie"] . "</td>
+                            <td>" . $row["nom_clie"] . "</td>
+                            <td>" . $row["ap_clie"] . "</td>
+                            <td>" . $row["am_clie"] . "</td>
+                            <td>" . $row["cel_clie"] . "</td>
+                            <td>" . $row["calle_clie"] . "</td>
+                            <td>" . $row["cp_clie"] . "</td>
+                            <td>" . $row["ni_clie"] . "</td>
+                            <td>" . $row["ne_clie"] . "</td>
+                            <td>" . $row["col_clie"] . "</td>
+                            <td>" . $row["rfc_clie"] . "</td>
+                            <td>" . $row["cve_mun"] . "</td>
+                            <td>" . $row["nom_usu"] . "</td>
+                            <td>" . $row["correo_clie"] . "</td>
                             <td>" . $row["activo"] . "</td>
-                            <td><a href='estado.php?cveest=" . md5($row["cve_est"]) . "'><i class=\"far fa-edit\"></i></a></td>
-                            <td><a href='estadoAcciones.php?acc=elimina&cveest=" .  md5($row["cve_est"])  . "'><i class=\"fa fa-trash-alt\"></i></a></td>
+                            <td><a href='cliente.php?id_clie=" . md5($row["id_clie"]) . "'><i class=\"far fa-edit\"></i></a></td>
+                            <td><a href='clienteAcciones.php?acc=elimina&id_clie=" .  md5($row["id_clie"])  . "'><i class=\"fa fa-trash-alt\"></i></a></td>
                          
                            </tr>
                             ";
@@ -132,9 +154,20 @@ include_once("ValidaSesion.php");
                     </tbody>
                     <tfoot>
                       <tr>
-                        <th>Clave de estado</th>
-                        <th>Nombre de estado</th>
-                        <th>Prefijo de estado</th>
+                      <th>ID de cliente</th>
+                        <th>Nombre</th>
+                        <th>Apellido paterno</th>
+                        <th>Apellido materno</th>
+                        <th>celular</th>
+                        <th>Calle</th>
+                        <th>Código postal</th>
+                        <th>Número interior</th>
+                        <th>Número exterior</th>
+                        <th>Colonia</th>
+                        <th>RFC</th>
+                        <th>ID de municipio</th>
+                        <th>Nombre de usuario</th>
+                        <th>Correo electrónico</th>
                         <th>Activo</th>
                         <th>Editar</th>
                         <th>Eliminar</th>

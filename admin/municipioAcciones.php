@@ -1,7 +1,8 @@
 <?php
-if (isset($_REQUEST["acc"]) =="elimina") {
-    include ("conexion.php");
-    $sql= "update municipio set activo = 0 where cve_mun ='".$_GET["cvemun"]."'";
+
+if (isset($_REQUEST["acc"]) && isset($_GET["cvemun"])) {
+    include("conexion.php");
+    $sql = "update municipio set activo = 0 where md5(cve_mun) = '" . $_GET["cvemun"] . "'";
 
     if ($conn->query($sql) === TRUE) {
         echo "<script>window.location.href='municipiolst.php';</script>";
@@ -10,22 +11,28 @@ if (isset($_REQUEST["acc"]) =="elimina") {
     }
 
     $conn->close();
+} else {
 
-}
+    if (isset($_GET["cvemun"])) {
 
-else{
-    if (isset($_GET["cve_mun"])){
         if (!isset($_REQUEST["nom_mun"])) {
-            echo "<script>alert('error al recibir los datos');window.open('municipio.php');</script>";
+            echo "<script>alert('Ingresando datos...');window.open('categoria.php');</script>";
         }
-        $cve_mun = $_REQUEST["cve_mun"];
-        $nom_mun =$_REQUEST["nom_mun"];
-        $prefijomun = $row["prefijo"];
-        $activomun = $row["activo"];
-        include("../conexion.php");
-        $sql = "update sucursal set cve_mun='$cve_mun', nom_mun='$nom_mun'
-                    ,prefijo='$prefijomun',activo='$activomun'
-                where md5(cve_mun)= '".$_GET["cve_mun"]."'";
+
+        $nommun = $_REQUEST["nom_mun"];
+        $prefijomun = $_REQUEST["prefijo"];
+        $cveest = $_REQUEST["cve_est"];
+
+        if (!isset($_REQUEST["activo"])) {
+            $activomun = "0";
+        } else {
+            $activomun = "1";
+        }
+
+
+        include("conexion.php");
+
+        $sql = "update municipio set nom_mun = '$nommun', prefijo='$prefijomun', activo = '$activomun', cve_est = '$cveest' where md5(cve_mun) = '" . $_GET["cvemun"] . "'";
 
         if ($conn->query($sql) === TRUE) {
             echo "<script>window.location.href='municipiolst.php';</script>";
@@ -34,20 +41,26 @@ else{
         }
 
         $conn->close();
-    }
-    else{
+    } else {
+
         if (!isset($_REQUEST["nom_mun"])) {
-
-            echo "<script>alert('error al recibir los datos');window.open('municipio.php');</script>";
+            echo "<script>alert('Ingresando datos...');window.open('municipio.php');</script>";
         }
-        $cve_mun = $_REQUEST["cve_mun"];
-        $nom_mun =$_REQUEST["nom_mun"];
-        $prefijomun = $row["prefijo"];
-        $activomun = $row["activo"];
 
-        include("../conexion.php");
-        $sql = "insert into municipio (cve_mun,nom_mun,prefijo,activo)
-values('" . $cve_mun . "','" . $nom_mun . "','".$activomun ."','" .  $prefijomun . "')";
+        $nommun = $_REQUEST["nom_mun"];
+        $prefijomun = $_REQUEST["prefijo"];
+        $cveest = $_REQUEST["cve_est"];
+
+        if (!isset($_REQUEST["activo"])) {
+            $activomun = "0";
+        } else {
+            $activomun = "1";
+        }
+
+        include("conexion.php");
+
+        $sql = "insert into municipio (nom_mun, activo, prefijo, cve_est) values('" . $nommun . "','" . $activomun . "','" . $prefijomun . "','" . $cveest . "');";
+		// die($sql);
         if ($conn->query($sql) === TRUE) {
             echo "<script>window.location.href='municipiolst.php';</script>";
         } else {
@@ -57,4 +70,5 @@ values('" . $cve_mun . "','" . $nom_mun . "','".$activomun ."','" .  $prefijomun
         $conn->close();
     }
 }
+
 ?>

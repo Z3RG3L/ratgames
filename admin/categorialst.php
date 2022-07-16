@@ -34,13 +34,13 @@ include_once("ValidaSesion.php");
     ?>
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <div body style="background-color:Teal" class="content-wrapper">
       <!-- Content Header (Page header) -->
       <section class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>TIPOS</h1>
+              <h1 style="color:white;">LISTA DE CATEGORIAS</h1>
             </div>
             <div class="col-sm-6">
             <?php
@@ -61,10 +61,10 @@ include_once("ValidaSesion.php");
                   <h3 class="card-title">Lista de categorías</h3>
                   <?php
                   $btnBorrados = "Mostrar todos";
-                  $accBorrados = "tipolst.php?borrados=si";
+                  $accBorrados = "categorialst.php?borrados=si";
                   if (isset($_REQUEST["borrados"])) {
                     $btnBorrados = "Ocultar borrados";
-                    $accBorrados = "tipolst.php";
+                    $accBorrados = "categorialst.php";
                   } else {
                     if (isset($_REQUEST["soloborrados"])) {
                       $btnBorrados = "Mostrar activos";

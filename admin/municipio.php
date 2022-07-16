@@ -33,29 +33,28 @@ include_once("ValidaSesion.php");
 
     include("menu.php");
 
-    $cve_mun = "";
+    $cvemun = "";
     $nommun = "";
     $prefijomun = "";
     $activomun = "";
+    $cveest = "";
     $destino = "";
 
-    if (isset($_REQUEST["municipio"])){
+    if (isset($_REQUEST["cvemun"])) {
 
       include("conexion.php");
 
-      $sql = "select cve_mun, nom_mun, prefijo, activo, cve_est 
-from municipio 
-where md5(cve_mun) = '" . $_REQUEST["municipio"] . "'";
+      $sql = "select cve_mun, nom_mun, prefijo, activo, cve_est from municipio where md5(cve_mun) = '" . $_REQUEST["cvemun"] . "'";
       $result = mysqli_query($conn, $sql);
 
       if (mysqli_num_rows($result) > 0) {
         // output data of each row
         while ($row = mysqli_fetch_assoc($result)) {
-          $destino = "?municipio=" . md5($row["cve_mun"]);
-          $cve_mun = $row["cve_mun"];
+          $destino = "?cvemun=" . md5($row["cve_mun"]);
           $nommun = $row["nom_mun"];
-          $prefijomun = $row["prefijomun"];
-          $activomun = $row["activomun"];
+          $prefijomun = $row["prefijo"];
+          $activomun = $row["activo"];
+          $cveest = $row["cve_est"];
           echo "<script>console.log(\"$activomun\");</script>";
         }
       } else {
@@ -67,13 +66,13 @@ where md5(cve_mun) = '" . $_REQUEST["municipio"] . "'";
     ?>
 
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
+<div style="background-color:Teal" class="content-wrapper">
       <!-- Content Header (Page header) -->
       <section class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
             <div   class="col-sm-6">
-              <h1>Municipio</h1>
+              <h1 style="color:white">MUNICIPIO</h1>
             </div>
             <div class="col-sm-6">
              <?php
@@ -93,7 +92,7 @@ where md5(cve_mun) = '" . $_REQUEST["municipio"] . "'";
             <div class="col-12">
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">Alta de municipio</h3>
+                  <h3 class="card-title">Alta de municipios</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -106,40 +105,42 @@ where md5(cve_mun) = '" . $_REQUEST["municipio"] . "'";
                     <form action="municipioAcciones.php<?= $destino ?>" method="post">
                       <div class="card-body">
                       <div class="form-group">
-                          <label for="cvemun">ID de municipio:</label>
-                          <input type="text" disabled class="form-control" name="cve_mun" id="cve_mun" value="" placeholder="Clave de municipio.">
-                        </div>
-                        <div class="form-group">
-                          <label for="nombre">Estado:</label>
-                          <select class="form-control" id="cve_est" name="cve_est">
-                            <option value="1">-- Seleccione una opción --</option>
-                            <?php
-                              include("conexion.php");
-
-                              $sql = "select cve_est, nom_est, activo from estado where activo = 1";
-                              $result = mysqli_query($conn, $sql);
-                        
-                              if (mysqli_num_rows($result) > 0) {
-                                while ($row = mysqli_fetch_assoc($result)) {
-                                  echo "<option value ='" . $row["cve_est"] . "'>" . $row["nom_est"] . "</option>";
-                                }
-                              } else {
-                                echo "0 results";
-                              }
-                        
-                              mysqli_close($conn);
-                            ?>
-                          </select>
-                        </div>
+                          <label for="cvemun">Clave de municipio:</label>
+                          <input type="text" disabled class="form-control" name="cve_mun" id="cve_mun" value="<?= $cvemun ?>" placeholder="Clave de municipio.">
+                        </div> 
                         <div class="form-group">
                           <label for="nombre">Nombre de municipio:</label>
-                          <input type="text" class="form-control" name="nom_mun" id="nom_mun" value="<?= $nommun; ?>" placeholder="Nombre de municipio.">
+                          <input size="3" type="text" class="form-control" name="nom_mun" id="nom_mun" value="<?= $nommun ?>" placeholder="Nombre de municipio.">
                         </div>
-
                         <div class="form-group">
                           <label for="prefijo">Prefijo de municipio:</label>
-                          <input size="3" type="text" class="form-control" name="prefijo" id="prefijo" value="<?= $prefijomun ?>" placeholder="Prefijo de municipio. (Ej.: AAA)">
+                          <input size="3" type="text" class="form-control" name="prefijo" id="prefijo" value="<?= $prefijomun ?>" placeholder="Prefijo de municipio.">
                         </div>
+                        <div class="form-group">
+<label for="nombre">Clave del Estado:</label>
+<select class="form-control" name="cve_est" id="cve_est" value="<?= $cveest; ?>">
+<option value="">-- Selecciones una opcion --</option>
+<?php
+include("conexion.php");
+$nom_est = "";
+$sql = "select cve_est, nom_est from estado";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+while ($row = $result->fetch_assoc()) {
+$nom_est = $row["nom_est"];
+if ($cveest == $row["cve_est"]) {
+echo "<option value='" . $row["cve_est"] . "' selected='selected'>" . $row["cve_est"] . ' - '. $row["nom_est"] ."</option>";
+} else {
+echo "<option value='" . $row["cve_est"] . "'>" . $row["cve_est"] .' - '. $row["nom_est"] . "</option>";
+}
+}
+} else {
+echo "0 results";
+}
+$conn->close();
+?>
+</select>
+</div>
                         <?php
                         $chequeado = "";
                         if ($activomun == 1) {
