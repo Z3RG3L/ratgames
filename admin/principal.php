@@ -15,7 +15,7 @@
     </head>
     <body>
 
-    <!--HEADERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR-->
+    <!--HEADER-->
 
     <?php
     include ("encabezado.php");
