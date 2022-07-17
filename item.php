@@ -19,90 +19,90 @@ session_start();
 </head>
 
 <body>
-    <!-- Navigation-->
-    <?php include("header.php"); ?>
-    <!-- Product section
-    <a href='index.php' class="btn btn-dark">Regresar</a>-->
-    <section class="py-5">
+<!-- Navigation-->
+<?php include("header.php"); ?>
+<!-- Product section
+<a href='index.php' class="btn btn-dark">Regresar</a>-->
+<section class="py-5">
 
-        <div class="container px-4 px-lg-5 my-5">
-            <div class="row gx-4 gx-lg-5 align-items-center">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="row gx-4 gx-lg-5 align-items-center">
 
-                <?php
-                include("./admin/conexion.php");
-                $sql = "select * from producto inner join inventario on inventario.idproducto = producto.idproducto where md5(producto.idproducto) = '" . $_REQUEST["idprod"] . "'";
+            <?php
+            include("./admin/conexion.php");
+            $sql = "select * from producto inner join inventario on inventario.id_pro = producto.id_pro where md5(producto.id_pro) = '" . $_REQUEST["idpro"] . "'";
 
-                $result = mysqli_query($conn, $sql);
-                $mininventario = 1;
-                $idproducto = 0;
-                $nombreproducto = "";
-                $precioproducto = 0;
-                $descripcionproducto = "";
-                $urlfoto = "";
-                $inventario = 0;
-                if (mysqli_num_rows($result) > 0) {
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        $idproducto = $row["idproducto"];
-                        $nombreproducto = $row["nombreproducto"];
-                        $precioproducto = $row["precio"];
-                        $descripcionproducto = $row["descripcionproducto"];
-                        $urlfoto = $row["urlfoto"];
-                        $inventario = $row["cantidad"];
-                    }
-                } else {
-                    echo "0 results";
+            $result = mysqli_query($conn, $sql);
+            $mininventario = 1;
+            $id_pro = 0;
+            $nombreproducto = "";
+            $precioproducto = 0;
+            $descripcionproducto = "";
+            $urlfoto = "";
+            $inventario = 0;
+            if (mysqli_num_rows($result) > 0) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $id_pro = $row["id_pro"];
+                    $nombreproducto = $row["nombreproducto"];
+                    $precioproducto = $row["precio"];
+                    $descripcionproducto = $row["descripcionproducto"];
+                    $urlfoto = $row["urlfoto"];
+                    $inventario = $row["cantidad"];
                 }
-                if ($inventario < 1) {
-                    $mininventario = 0;
-                }
-                mysqli_close($conn);
-                ?>
-                <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="<?= $urlfoto ?>" alt="..." /></div>
-                <div class="col-md-6">
-                    <div class="small mb-1">SKU: <?= $_REQUEST["idprod"] ?></div>
-                    <h1 class="display-5 fw-bolder"><?= $nombreproducto ?></h1>
-                    <div class="fs-5 mb-5">
-                        <span class="text-decoration-line-through"><?php echo $precioproducto * 1.13 ?></span>
-                        <span>$<?= $precioproducto ?></span>
-                    </div>
-                    <p class="lead"><?= $descripcionproducto ?></p>
-                    <form action="agregacarrito.php" method="get" cause>
-                        <input type="text" style="visibility:hidden;" value="<?= $_REQUEST["idprod"] ?>" name="idprod" value="idprod">
-                        <div class="d-flex">
-                            <?php
-                            if ($mininventario < 1) {
-                                echo '<div class="alert alert-warning" role="alert">
+            } else {
+                echo "0 results";
+            }
+            if ($inventario < 1) {
+                $mininventario = 0;
+            }
+            mysqli_close($conn);
+            ?>
+            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="<?= $urlfoto ?>" alt="..." /></div>
+            <div class="col-md-6">
+                <div class="small mb-1">SKU: <?= $_REQUEST["idpro"] ?></div>
+                <h1 class="display-5 fw-bolder"><?= $nombreproducto ?></h1>
+                <div class="fs-5 mb-5">
+                    <span class="text-decoration-line-through"><?php echo $precioproducto * 1.13 ?></span>
+                    <span>$<?= $precioproducto ?></span>
+                </div>
+                <p class="lead"><?= $descripcionproducto ?></p>
+                <form action="agregacarrito.php" method="get" cause>
+                    <input type="text" style="visibility:hidden;" value="<?= $_REQUEST["idpro"] ?>" name="idpro" value="idpro">
+                    <div class="d-flex">
+                        <?php
+                        if ($mininventario < 1) {
+                            echo '<div class="alert alert-warning" role="alert">
                                 Lo sentimos, no tenemos en existencias
                               </div>';
-                            } else {
-                                echo '<br><input required class="form-control text-center me-3" id="cant" name="cant" type="number" value="0" min="' . $mininventario . '" max="' . $inventario . '" style="max-width: 5rem" />
+                        } else {
+                            echo '<br><input required class="form-control text-center me-3" id="cant" name="cant" type="number" value="0" min="' . $mininventario . '" max="' . $inventario . '" style="max-width: 5rem" />
                                 <input type="submit" value="Agregar al carrito" class="btn btn-outline-dark flex-shrink-0">';
-                            }
-                            ?>
+                        }
+                        ?>
 
 
-                        </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
-    </section>
-    <!-- Related items section-->
-    <section class="py-5 bg-light">
-        <div class="container px-4 px-lg-5 mt-5">
-            <h2 class="fw-bolder mb-4">Related products</h2>
-            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                <?php
-                include("./admin/conexion.php");
-                $sql = "select * from producto as p inner join inventario as i on i.idproducto = p.idproducto order by rand() limit 4";
+    </div>
+</section>
+<!-- Related items section-->
+<section class="py-5 bg-light">
+    <div class="container px-4 px-lg-5 mt-5">
+        <h2 class="fw-bolder mb-4">Related products</h2>
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            <?php
+            include("./admin/conexion.php");
+            $sql = "select * from producto as p inner join inventario as i on i.id_pro = p.id_pro order by rand() limit 4";
 
-                $result = mysqli_query($conn, $sql);
+            $result = mysqli_query($conn, $sql);
 
-                if (mysqli_num_rows($result) > 0) {
+            if (mysqli_num_rows($result) > 0) {
 
-                    while ($row = mysqli_fetch_assoc($result)) {
+                while ($row = mysqli_fetch_assoc($result)) {
 
-                        echo '<div class="col mb-5">
+                    echo '<div class="col mb-5">
                         <div class="card h-100">
                             <img class="card-img-top" src="' . $row["urlfoto"] . '" alt="..." />
                             <div class="card-body p-4">
@@ -116,29 +116,29 @@ session_start();
                             </div>
                         </div>
                     </div>';
-                    }
-                } else {
-                    echo "0 results";
                 }
+            } else {
+                echo "0 results";
+            }
 
-                mysqli_close($conn);
-                ?>
+            mysqli_close($conn);
+            ?>
 
 
 
-            </div>
         </div>
-    </section>
-    <!-- Footer-->
-    <footer class="py-5 bg-dark">
-        <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p>
-        </div>
-    </footer>
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
+    </div>
+</section>
+<!-- Footer-->
+<footer class="py-5 bg-dark">
+    <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p>
+    </div>
+</footer>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
 </body>
 
 </html>
