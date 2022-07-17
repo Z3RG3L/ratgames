@@ -63,7 +63,7 @@
                         while ($row = $result->fetch_assoc()) {
                             echo '<div class="col mb-5">
                         <div class="card h-100">
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Caliente!</div>
+                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Oferta!</div>
                             <a href="item.php?idprod=' . md5($row["id_pro"]) . '"><img class="card-img-top" src="' . $row["img_prod"] . '" alt="..." /></a>
                             <div class="card-body p-4">
                                 <div class="text-center">
