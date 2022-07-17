@@ -18,7 +18,7 @@
     <!--HEADER-->
 
     <?php
-    include ("encabezado.php");
+    include ("header.php");
     ?>
 
     <!--/HEADER-->
@@ -46,8 +46,11 @@
                 <h2 class="fw-bolder mb-4" >JUEGOS</h2>
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
 
+
+
+
                 <?php
-                include("conexion.php");
+                include("./admin/conexion.php");
 
                 $sql = "SELECT * from producto";
                 $result = $conn->query($sql);
