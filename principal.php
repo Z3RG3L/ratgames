@@ -49,57 +49,62 @@
 
 
 
-                <?php
-                include("./admin/conexion.php");
+                    <?php
+                    include("./admin/conexion.php");
+                    $whereidcat = "";
+                    if (isset($_REQUEST["idcat"])) {
+                        $whereidcat = " and md5(cve_cat) ='" . $_REQUEST["idcat"] . "'";
+                    }
+                    $sql = "select * from producto as p inner join inventario as i on i.id_pro = p.id_pro where p.activo = 1 " . $whereidcat;
 
-                $sql = "SELECT * from producto";
-                $result = $conn->query($sql);
+                    $result = $conn->query($sql);
 
-                if ($result->num_rows > 0) {
-                    // output data of each row
-                    while($row = $result->fetch_assoc()) {
-                        echo '
-                    <div class="col mb-xl-3">
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo '<div class="col mb-5">
                         <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top"  src="'.$row["img_prod"].'" />
-                            <!-- Product details-->
+                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Caliente!</div>
+                            <a href="item.php?idprod=' . md5($row["id_pro"]) . '"><img class="card-img-top" src="' . $row["img_prod"] . '" alt="..." /></a>
                             <div class="card-body p-4">
                                 <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">"'.$row["nom_pro"].'"</h5>
-                                    <!-- Product price-->
-                                   $'.$row["prec_pro"].'
-                           
+                                    <h5 class="fw-bolder">' . $row["nom_pro"] . '</h5>
+                                    <div class="d-flex justify-content-center small text-warning mb-2">
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                    </div>
+                                    <span class="text-muted text-decoration-line-through">$' . $row["prec_pro"] * 1.17 . '</span>
+                                    $' . $row["prec_pro"] . '
                                 </div>
                             </div>
-                            <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Agregar al carrito</a></div>
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="agregacarrito.php?idp=' . $row["id_pro"] . '">Añadir al carrito</a></div>
                             </div>
                         </div>
-                    </div>
-                ';
+                    </div>';
+                        }
+                    } else {
+                        echo "<h3>!Regresa pronto para más promociones!</h3>";
                     }
-                } else {
-                    echo "0 results";
-                }
-                $conn->close();
-                ?>
-            </div>
-            </div>
+                    $conn->close();
 
+                    ?>
 
+                </div>
+            </div>
         </section>
-        <!-- Footer-->
-        <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright © 2022 Rat Games. All rights reserved.
-                    Content from this website may NOT be used or reproduced in whole or in part without express written permission from Rat Games.
-                    Violators will be prosecuted to the fullest extent of the law.</p></div>
-        </footer>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
+    <!-- Footer-->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p>
+        </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
     </body>
+
 </html>

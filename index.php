@@ -47,7 +47,7 @@ session_start();
                     while ($row = $result->fetch_assoc()) {
                         echo '<div class="col mb-5">
                         <div class="card h-100">
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Caliente!</div>
+                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">OFERTA!</div>
                             <a href="item.php?idprod=' . md5($row["idproducto"]) . '"><img class="card-img-top" src="' . $row["urlfoto"] . '" alt="..." /></a>
                             <div class="card-body p-4">
                                 <div class="text-center">
