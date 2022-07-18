@@ -2,6 +2,7 @@
 session_start();
 unset($_SESSION['nomusuario']);
 session_destroy();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,45 +22,89 @@ session_destroy();
     <link rel="stylesheet" href="./dist/css/adminlte.min.css">
 </head>
 
-<body style="background-color:black" class="hold-transition login-page">
-            <div class="login-box">
-            <!-- /.login-logo -->
-            <div body style="background-color:white" class="card card-outline card-primary">
-                <div class="card-header text-center">
-                <img src="https://images.emojiterra.com/google/android-11/512px/1f400.png" height=100 width=100>
-                    <a href="./index2.html" class="h1"><b>RAT GAMES</b></a>
-                </div>
-                <div class="card-body">
-                    <p class="login-box-msg">INICIO DE SESIÓN</p>
-
-                    <form action="validau.php" method="post">
-                        <div class="input-group mb-3">
-                            <input type="text" name="usuario" id="usuario" class="form-control" placeholder="Nombre de usuario">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-user"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="input-group mb-3">
-                            <input type="password" name="pass" id="pass" class="form-control" placeholder="Contraseña">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-lock"></span>
-                                </div>
-                            </div>
-                        </div>
-                        </div>
-                            <!-- /.col -->
-                            <div class="col-4">
-                                <button type="submit" class="btn btn-primary btn-block" style="margin-left: 110%;">Iniciar</button>
-                            </div>
-                            <!-- /.col -->
-                        </div>
-                    </form>
-
-        <!-- /.login-box -->
+<body class="hold-transition login-page">
+<div class="login-box">
+    <!-- /.login-logo -->
+    <div class="card card-outline card-primary">
+        <div class="card-header text-center">
+            <a href="../../index2.html" class="h1"><b>Admin</b>LTE</a>
         </div>
+        <div class="card-body">
+            <p class="login-box-msg">Sign in to start your session</p>
+
+            <form action="validau.php" method="post">
+                <div class="input-group mb-3">
+                    <input type="text" name="usuario" id="usuario" class="form-control" placeholder="Email">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-user"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="password" name="pass" id="pass" class="form-control" placeholder="Password">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <?php
+
+                if (isset($_REQUEST["usr"])) {
+                    echo '<div class="input-group mb-3">
+            <select class="form-control">
+              <option value="3">Querétaro</option>
+            </select>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
+            </div>
+          </div>';
+                }
+
+                ?>
+                <div class="row">
+                    <div class="col-8">
+                        <div class="icheck-primary">
+                            <input type="checkbox" id="remember">
+                            <label for="remember">
+                                Remember Me
+                            </label>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </form>
+
+            <div class="social-auth-links text-center mt-2 mb-3">
+                <a href="#" class="btn btn-block btn-primary">
+                    <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
+                </a>
+                <a href="#" class="btn btn-block btn-danger">
+                    <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+                </a>
+            </div>
+            <!-- /.social-auth-links -->
+
+            <p class="mb-1">
+                <a href="forgot-password.html">I forgot my password</a>
+            </p>
+            <p class="mb-0">
+                <a href="register.html" class="text-center">Register a new membership</a>
+            </p>
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+</div>
+<!-- /.login-box -->
+
 <!-- jQuery -->
 <script src="./plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->

@@ -26,7 +26,7 @@
             <form class="d-flex">
                 <?php
 
-                if (isset($_SESSION["nombre"])) {
+                if (isset($_SESSION["nomcliente"])) {
                     $carrito = $_SESSION["sCarrito"];
                     $cuentaCarrito = 0;
                     foreach ($carrito as $x => $x_value) {

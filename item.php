@@ -35,19 +35,19 @@ session_start();
             $result = mysqli_query($conn, $sql);
             $mininventario = 1;
             $id_pro = 0;
-            $nombreproducto = "";
-            $precioproducto = 0;
-            $descripcionproducto = "";
-            $urlfoto = "";
+            $nom_pro  = "";
+            $prec_pro  = 0;
+
+            $img_prod  = "";
             $inventario = 0;
             if (mysqli_num_rows($result) > 0) {
                 while ($row = mysqli_fetch_assoc($result)) {
                     $id_pro = $row["id_pro"];
-                    $nombreproducto = $row["nombreproducto"];
-                    $precioproducto = $row["precio"];
-                    $descripcionproducto = $row["descripcionproducto"];
-                    $urlfoto = $row["urlfoto"];
-                    $inventario = $row["cantidad"];
+                    $nom_pro  = $row["nom_pro"];
+                    $prec_pro  = $row["prec_pro"];
+
+                    $img_prod  = $row["img_prod"];
+                    $inventario = $row["exist_prod"];
                 }
             } else {
                 echo "0 results";
@@ -57,15 +57,15 @@ session_start();
             }
             mysqli_close($conn);
             ?>
-            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="<?= $urlfoto ?>" alt="..." /></div>
+            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="<?= $img_prod  ?>" alt="..." /></div>
             <div class="col-md-6">
                 <div class="small mb-1">SKU: <?= $_REQUEST["idpro"] ?></div>
-                <h1 class="display-5 fw-bolder"><?= $nombreproducto ?></h1>
+                <h1 class="display-5 fw-bolder"><?= $nom_pro  ?></h1>
                 <div class="fs-5 mb-5">
-                    <span class="text-decoration-line-through"><?php echo $precioproducto * 1.13 ?></span>
-                    <span>$<?= $precioproducto ?></span>
+                    <span class="text-decoration-line-through"><?php echo $prec_pro * 1.13 ?></span>
+                    <span>$<?= $prec_pro ?></span>
                 </div>
-                <p class="lead"><?= $descripcionproducto ?></p>
+
                 <form action="agregacarrito.php" method="get" cause>
                     <input type="text" style="visibility:hidden;" value="<?= $_REQUEST["idpro"] ?>" name="idpro" value="idpro">
                     <div class="d-flex">
@@ -104,11 +104,11 @@ session_start();
 
                     echo '<div class="col mb-5">
                         <div class="card h-100">
-                            <img class="card-img-top" src="' . $row["urlfoto"] . '" alt="..." />
+                            <img class="card-img-top" src="' . $row["img_prod"] . '" alt="..." />
                             <div class="card-body p-4">
                                 <div class="text-center">
-                                    <h5 class="fw-bolder">' . $row["nombreproducto"] . '</h5>
-                                    $' . $row["precio"] . '
+                                    <h5 class="fw-bolder">' . $row["nom_pro"] . '</h5>
+                                    $' . $row["prec_pro"] . '
                                 </div>
                             </div>
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
