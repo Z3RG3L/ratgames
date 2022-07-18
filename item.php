@@ -9,7 +9,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Shop Item - Start Bootstrap Template</title>
+    <title>RAT GAMES</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Bootstrap icons-->
@@ -30,7 +30,7 @@ session_start();
 
             <?php
             include("./admin/conexion.php");
-            $sql = "select * from producto inner join inventario on inventario.id_pro = producto.id_pro where md5(producto.id_pro) = '" . $_REQUEST["idpro"] . "'";
+            $sql = "select * from producto inner join inventario on inventario.id_pro = producto.id_pro where md5(producto.id_pro) = '" . $_REQUEST["idprod"] . "'";
 
             $result = mysqli_query($conn, $sql);
             $mininventario = 1;
@@ -59,7 +59,7 @@ session_start();
             ?>
             <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="<?= $img_prod  ?>" alt="..." /></div>
             <div class="col-md-6">
-                <div class="small mb-1">SKU: <?= $_REQUEST["idpro"] ?></div>
+                <div class="small mb-1">SKU: <?= $_REQUEST["idprod"] ?></div>
                 <h1 class="display-5 fw-bolder"><?= $nom_pro  ?></h1>
                 <div class="fs-5 mb-5">
                     <span class="text-decoration-line-through"><?php echo $prec_pro * 1.13 ?></span>
@@ -67,7 +67,7 @@ session_start();
                 </div>
 
                 <form action="agregacarrito.php" method="get" cause>
-                    <input type="text" style="visibility:hidden;" value="<?= $_REQUEST["idpro"] ?>" name="idpro" value="idpro">
+                    <input type="text" style="visibility:hidden;" value="<?= $_REQUEST["idprod"] ?>" name="idprod" value="idprod">
                     <div class="d-flex">
                         <?php
                         if ($mininventario < 1) {
