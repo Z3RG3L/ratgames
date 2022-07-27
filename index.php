@@ -1,69 +1,56 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Shop Item - Start Bootstrap Template</title>
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-        <!-- Bootstrap icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
-    </head>
-    <body>
 
-    <!--HEADER-->
+<aside body style="background-color:#5A8BF6" class="main-sidebar sidebar-dark-primary elevation-4">
+<head>
+    <meta charset="utf-8" />
 
-    <?php
-    include ("header.php");
-    ?>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>RAT GAMES</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+</head>
+</aside>
 
-    <!--/HEADER-->
-
-        <!-- Seleccion de producto-->
-        <section class="py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="row gx-4 gx-lg-5 align-items-center">
-                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://img.freepik.com/vector-gratis/logotipo-retro-videojuegos-luces-neon_23-2148236553.jpg" alt="..." /></div>
-                    <div class="col-md-6">
-                        <h1 class="display-5 fw-bolder">Juegos modernos y clasicos.</h1>
-
-                        <p class="lead">Contactanos en nuestras redes sociales</p>
-                        <img height="50" width="50" src="https://cdn-icons-png.flaticon.com/512/20/20673.png">
-                        <img height="50" width="50" src="https://cdn-icons-png.flaticon.com/512/60/60580.png">
-                        <img height="50" width="" src="https://pngroyale.com/wp-content/uploads/2021/12/Download-free-Logo-do-Instagram-PNG-PNG.png">
-
-                    </div>
-                </div>
+<body style="background-color:#B1A8FC" div  class="container px-4 px-lg-5">
+    <?php include("header2.php"); ?>
+    <!-- Header-->
+    <header class="bg-dark py-5" style="background-image:url(https://media.istockphoto.com/vectors/neon-icons-for-decoration-in-gaming-clubs-vector-id1169731789?k=20&m=1169731789&s=612x612&w=0&h=c1_lCsQFhW_ts-VKlhQLkBwUPqug2eRFMtaXAYgAH7k=)">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">RAT GAMES</h1>
+                <h3 style="color:white">Tú mejor opción para comprar si buscas videojuegos.</h3>
             </div>
-        </section>
-        <!-- Related items section-->
-        <section class="py-5 bg-light">
-            <div class="container px-4 px-lg-5 mt-5">
-                <h2 class="fw-bolder mb-4" >JUEGOS</h2>
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+        </div>
+    </header>
+    <!-- Section-->
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+<?php
+                include("./admin/conexion.php");
+                $wherecvecat = "";
+                if (isset($_REQUEST["cvecat"])) {
+                    $wherecvecat = " and md5(cve_cat) ='" . $_REQUEST["cvecat"] . "'";
+                }
+                $sql = "select * from producto where activo = 1 " . $wherecvecat;
 
+                $result = $conn->query($sql);
 
-
-
-                    <?php
-                    include("./admin/conexion.php");
-                    $whereidcat = "";
-                    if (isset($_REQUEST["idcat"])) {
-                        $whereidcat = " and md5(cve_cat) ='" . $_REQUEST["idcat"] . "'";
-                    }
-                    $sql = "select * from producto as p inner join inventario as i on i.id_pro = p.id_pro where p.activo = 1 " . $whereidcat;
-
-                    $result = $conn->query($sql);
-
-                    if ($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
-                            echo '<div class="col mb-5">
+                if ($result->num_rows > 0) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo '<div class="col mb-5">
                         <div class="card h-100">
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Oferta!</div>
+                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem"></div>
                             <a href="item.php?idprod=' . md5($row["id_pro"]) . '"><img class="card-img-top" src="' . $row["img_prod"] . '" alt="..." /></a>
                             <div class="card-body p-4">
                                 <div class="text-center">
@@ -75,8 +62,8 @@
                                         <div class="bi-star-fill"></div>
                                         <div class="bi-star-fill"></div>
                                     </div>
-                                    <span class="text-muted text-decoration-line-through">$' . $row["prec_pro"] * 1.17 . '</span>
-                                    $' . $row["prec_pro"] . '
+                                    <span class="text-muted text-decoration-line-through"></span>
+                                    $' . $row["prec_pro"] . ' MX
                                 </div>
                             </div>
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
@@ -84,17 +71,17 @@
                             </div>
                         </div>
                     </div>';
-                        }
-                    } else {
-                        echo "<h3>!Regresa pronto para más promociones!</h3>";
                     }
-                    $conn->close();
+                } else {
+                    echo "<h3>¡Por el momento no hay algo que mostrar!</h3>";
+                }
+                $conn->close();
 
-                    ?>
+                ?>
 
-                </div>
             </div>
-        </section>
+        </div>
+    </section>
     <!-- Footer-->
     <footer class="py-5 bg-dark">
         <div class="container">
@@ -105,6 +92,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
     <script src="js/scripts.js"></script>
-    </body>
+</body>
 
 </html>

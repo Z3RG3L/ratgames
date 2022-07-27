@@ -1,3 +1,6 @@
+<?php
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,104 +19,90 @@
     <link rel="stylesheet" href="./dist/css/adminlte.min.css">
 </head>
 
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
-
-<body>
-
-<!--HEADER-->
+<body style="background-color:#5A8BF6" class="hold-transition login-page">
+<div class="login-box">
 <?php
-    include ("encabezado.php");
-?>
-<!--/HEADER-->
 
-<div id="login">
-    <h3 class="text-center text-white pt-5">REGISTRO DE USUARIO NUEVO</h3>
-    <div class="container">
-        <div id="login-row" class="row justify-content-center align-items-center">
-            <div id="login-column" class="col-md-6">
-                <div id="login-box" class="col-md-12">
+    $nomusu = "";
+    $contrusu = "";
+    $pregusu = "";
+    $destino = "";
 
-                    <form id="login-form" class="form" action="" method="post">
-                        <h3 class="text-center text-info">REGISTRO DE USUARIO</h3>
+    if (isset($_REQUEST["nomusu"])) {
 
-                        <div class="row gx-4 gx-lg-5 row-cols-3 justify-content-center">
+      include("conexion.php");
 
-                        <div class="form-group">
-                            <label for="password" class="text-info">Nombre:</label><br>
-                            <input type="text" name="password" id="password" class="form-control" placeholder="Nombre">
-                        </div>
+      $sql = "select nom_usu, contr_usu, pregusu from usuario where nom_usu = '" . $_REQUEST["nomusu"] . "'";
+      $result = mysqli_query($conn, $sql);
 
-                        <div class="form-group">
-                            <label for="password" class="text-info">Apellido Paterno:</label><br>
-                            <input type="text" name="password" id="password" class="form-control">
-                        </div>
+      if (mysqli_num_rows($result) > 0) {
+        // output data of each row
+        while ($row = mysqli_fetch_assoc($result)) {
+          $destino = "?nomusu=" . ($row["nom_usu"]);
+          $nomusu = $row["nom_usu"];
+          $contrusu = $row["contr_usu"];
+          $pregusu = ($row["pregunta_usu"]);
+       
+    }
+}
+    }
 
-                        <div class="form-group">
-                            <label for="password" class="text-info">Apellido Materno:</label><br>
-                            <input type="text" name="password" id="password" class="form-control">
-                        </div>
+    ?>
 
-                        <div class="form-group">
-                            <label for="password" class="text-info"> Telefono:</label><br>
-                            <input type="text" name="password" id="password" class="form-control">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password" class="text-info">Calle:</label><br>
-                            <input type="text" name="password" id="password" class="form-control">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password" class="text-info">Colonia:</label><br>
-                            <input type="text" name="password" id="password" class="form-control">
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="password" class="text-info">RFC:</label><br>
-                            <input type="text" name="password" id="password" class="form-control">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password" class="text-info">Municipio:</label><br>
-                            <input type="text" name="password" id="password" class="form-control">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password" class="text-info">Correo Electronico:</label><br>
-                            <input type="text" name="password" id="password" class="form-control">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="username" class="text-info">Nombre de usuario:</label><br>
-                            <input type="text" name="username" id="username" class="form-control">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password" class="text-info">Contraseña:</label><br>
-                            <input type="text" name="password" id="password" class="form-control">
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="password" class="text-info">Confirmar contraseña:</label><br>
-                            <input type="text" name="password" id="password" class="form-control">
-                        </div>
-                        </div>
-
-
-                        <div class="form-group">
-                            <input href="RegistroNuevo.php" type="Registrar" name="Registrar" class="btn btn-info btn-md" value="Registrar">
-                        </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+    <!-- /.login-logo -->
+    <div body style="background-color:white" class="card card-outline card-primary">
+        <div class="card-header text-center">
+        <img src="https://images.emojiterra.com/google/android-11/512px/1f400.png" height=100 width=100>
+            <a href="./index2.html" class="h1"><b>RAT GAMES</b></a>
         </div>
-    </div>
-</div>
+        <div class="card-body">
+            <p class="login-box-msg">INICIO DE SESIÓN</p>
+
+            <form action="registroAcciones.php" method="post">
+                <div class="input-group mb-3">
+                    <input type="text" name="usuario" id="usuario" class="form-control" value="<?= $nomusu ?>" placeholder="Nombre de usuario">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-user"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="password" name="pass" id="pass" class="form-control" value="<?= $contrusu ?>" placeholder="Contraseña">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" name="pregunta" id="pregunta" class="form-control" value="<?= $pregusu ?>" placeholder="Pregunta de recuperacion">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                           
+                        </div>
+                    </div>
+                </div>
+              
+             
+               
+                    <!-- /.col -->
+                    
+                        <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                      </div>
+                    <!-- /.col -->
+                </div>
+            </form>
+           
+<!-- /.login-box -->
+
+<!-- jQuery -->
+<script src="./plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="./plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="./dist/js/adminlte.min.js"></script>
 </body>
+
 </html>

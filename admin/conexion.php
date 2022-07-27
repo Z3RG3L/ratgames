@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "Shakugannoshana97";
+$password = "michelle";
 $dbname = "rat_games";
 
 // Create connection

@@ -2,22 +2,17 @@
 <!-- Main Sidebar Container -->
 <aside body style="background-color:lightblue;" class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <img src = "dist/img/AdminLTELogo.png" class="brand-image img-circle elevation-3" style="opacity: .8" width="50" height="50">
+    <a href="index3.html" class="brand-link">
+        <img src alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">RAT GAMES</span>
     </a>
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <img src="<?php
-            if ($_SESSION["nomusuario"] == "Administrador: Michelle"){
-
-                echo 'dist/img/MichelleBocanegra.jpg';
-            }else{
-                echo 'dist/img/photo.jpg';
-            } ?>" class="img-circle elevation-2">
+                <a>Michelle<img src="dist/img/MichelleBocanegra.jpg" class="img-circle elevation-2"></a>
+            </div>
             <div class="info">
-                <a style="color:black" href="#" class="d-block"> <?= $_SESSION["nomusuario"]; ?> </a>
             </div>
         </div>
 
